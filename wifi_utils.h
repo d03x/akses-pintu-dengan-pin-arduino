@@ -10,5 +10,6 @@ extern const char* ssid;
 extern const char* password;
 
 void wifi_connect();
+bool wifi_connected_status();
 
 #endif

@@ -3,6 +3,13 @@
 const char* ssid = "Deni Sumargo";
 const char* password = "bismilahpakearab";
 
+bool wifi_connected_status() {
+  if (WiFi.status() == WL_CONNECTED) {
+    return true;
+  }
+  return false;
+}
+
 void wifi_connect() {
   lcd_display_text(0, 0, "Setup WiFi...");
   WiFi.begin(ssid, password);

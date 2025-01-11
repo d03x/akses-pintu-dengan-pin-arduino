@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relay Control</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    }
+
+    .card {
+      background-color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      width: 300px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card h1 {
+      margin: 0 0 20px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    .button {
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #0056b3;
+    }
+
+    .button.loading {
+      background-color: #ffc107;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Relay Control</h1>
+    <button class="button" onclick="relayToggle(this)">ON</button>
+  </div>
+
+  <script>
+    let open = false;
+
+    function relayToggle(button) {
+      open = !open;
+      button.textContent = "Loading...";
+      button.classList.add("loading");
+
+      const url = open
+        ? "http://192.168.43.189/relay/1/on"
+        : "http://192.168.43.189/relay/1/off";
+
+      fetch(url)
+        .then(() => {
+          button.textContent = open ? "OFF" : "ON";
+        })
+        .catch(() => {
+          button.textContent = open ? "OFF" : "ON";
+        })
+        .finally(() => {
+          button.classList.remove("loading");
+        });
+    }
+  </script>
+</body>
+</html>
